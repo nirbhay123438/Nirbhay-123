@@ -1,0 +1,2656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swastik Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #1cc88a;
+            --dark-color: #5a5c69;
+        }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f8f9fc;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        .card {
+            border: none;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+        .card-header {
+            background-color: #f8f9fc;
+            border-bottom: 1px solid #e3e6f0;
+            font-weight: 700;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-success {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        .youtube-channel {
+            background-color: #ff0000;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+        .youtube-channel:hover {
+            background-color: #cc0000;
+            color: white;
+        }
+        .login-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary-color) 10%, #224abe 100%);
+            min-height: 100vh;
+        }
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+        .sidebar .nav-link:hover {
+            color: #fff;
+        }
+        .sidebar .nav-link.active {
+            color: #fff;
+            font-weight: 700;
+        }
+        .attendance-calendar {
+            width: 100%;
+        }
+        .present {
+            background-color: #1cc88a !important;
+            color: white !important;
+        }
+        .absent {
+            background-color: #e74a3b !important;
+            color: white !important;
+        }
+        .holiday {
+            background-color: #f6c23e !important;
+            color: white !important;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #f8f9fc;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Page -->
+    <div id="home-page">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-book-open me-2"></i>Swastik Library
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showAdminLogin()">Admin Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showStudentLogin()">Student Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="text-center mb-4">
+                <a href="https://youtube.com/@studyboy240?si=kt4t5INpjLm8kEYB" target="_blank" class="youtube-channel">
+                    <i class="fab fa-youtube me-2"></i>Subscribe to My YouTube Channel
+                </a>
+                <h2>Welcome to Swastik Library</h2>
+                <p class="lead">Your gateway to knowledge and learning</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">For Students</h5>
+                            <p class="card-text">Access your profile, mark attendance, check payment status and more.</p>
+                            <button class="btn btn-primary" onclick="showStudentLogin()">Student Login</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">For Admin</h5>
+                            <p class="card-text">Manage students, attendance, payments and library operations.</p>
+                            <button class="btn btn-primary" onclick="showAdminLogin()">Admin Login</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Page -->
+    <div id="admin-login-page" style="display: none;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card mt-5">
+                        <div class="card-header text-center">
+                            <h4>Admin Login</h4>
+                        </div>
+                        <div class="card-body">
+                            <img src="https://via.placeholder.com/500x300?text=Swastik+Library+Login" alt="Library Login Image" class="login-image">
+                            <form id="admin-login-form">
+                                <div class="mb-3">
+                                    <label for="admin-username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="admin-username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="admin-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="admin-password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Login</button>
+                            </form>
+                            <div class="text-center mt-3">
+                                <a href="#" onclick="showHomePage()">Back to Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Login Page -->
+    <div id="student-login-page" style="display: none;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card mt-5">
+                        <div class="card-header text-center">
+                            <h4>Student Login</h4>
+                        </div>
+                        <div class="card-body">
+                            <img src="https://via.placeholder.com/500x300?text=Swastik+Library+Login" alt="Library Login Image" class="login-image">
+                            <form id="student-login-form">
+                                <div class="mb-3">
+                                    <label for="student-username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="student-username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="student-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="student-password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Login</button>
+                            </form>
+                            <div class="text-center mt-3">
+                                <a href="#" onclick="showHomePage()">Back to Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" style="display: none;">
+        <div class="d-flex">
+            <!-- Sidebar -->
+            <div class="sidebar sidebar-dark d-flex flex-column p-3" style="width: 280px;">
+                <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-4">Admin Panel</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" onclick="showAdminSection('dashboard')">
+                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" onclick="showAdminSection('students')">
+                            <i class="fas fa-users me-2"></i> Manage Students
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" onclick="showAdminSection('attendance')">
+                            <i class="fas fa-calendar-check me-2"></i> Attendance
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" onclick="showAdminSection('payments')">
+                            <i class="fas fa-rupee-sign me-2"></i> Payments
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" onclick="showAdminSection('reports')">
+                            <i class="fas fa-chart-bar me-2"></i> Reports
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown">
+                        <img src="https://via.placeholder.com/30" alt="Admin" width="30" height="30" class="rounded-circle me-2">
+                        <strong id="admin-name">Admin</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#" onclick="showAdminSection('profile')">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="logout()">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="flex-grow-1 p-4">
+                <!-- Admin Dashboard Section -->
+                <div id="admin-dashboard-section">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Dashboard</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total Students</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-students">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Today's Attendance</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="today-attendance">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Pending Payments</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="pending-payments">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Recent Students</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="recent-students" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>ID</th>
+                                                    <th>Join Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Filled by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Recent Payments</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="recent-payments" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Student</th>
+                                                    <th>Month</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Filled by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Students Section -->
+                <div id="admin-students-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Manage Students</h1>
+                        <button class="btn btn-primary" onclick="showAddStudentModal()">
+                            <i class="fas fa-plus me-1"></i> Add Student
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="students-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Address</th>
+                                    <th>Timing</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Attendance Section -->
+                <div id="admin-attendance-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Attendance Management</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <input type="date" class="form-control" id="attendance-date" onchange="loadAttendanceForDate()">
+                            </div>
+                            <button class="btn btn-primary" onclick="markAllPresent()">
+                                <i class="fas fa-check-circle me-1"></i> Mark All Present
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="attendance-table">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Payments Section -->
+                <div id="admin-payments-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Payment Management</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <select class="form-select" id="payment-month-filter">
+                                    <option value="">All Months</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="showAddPaymentModal()">
+                                <i class="fas fa-plus me-1"></i> Add Payment
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="payments-table">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Month</th>
+                                    <th>Amount</th>
+                                    <th>Payment Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Reports Section -->
+                <div id="admin-reports-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Reports</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <select class="form-select" id="report-type">
+                                    <option value="attendance">Attendance Report</option>
+                                    <option value="payments">Payments Report</option>
+                                    <option value="students">Students Report</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="generateReport()">
+                                <i class="fas fa-download me-1"></i> Generate Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="report-start-date" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="report-start-date">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="report-end-date" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="report-end-date">
+                        </div>
+                    </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Report Preview</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="report-table" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Details</th>
+                                            <th>Count</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Filled by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Profile Section -->
+                <div id="admin-profile-section" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Admin Profile</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="https://via.placeholder.com/150" alt="Admin Profile" class="profile-img mb-3">
+                            <h4 id="admin-profile-name">Admin Name</h4>
+                            <p class="text-muted">Library Administrator</p>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Personal Information</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form id="admin-profile-form">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="admin-profile-username" class="form-label">Username</label>
+                                                <input type="text" class="form-control" id="admin-profile-username" readonly>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="admin-profile-email" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="admin-profile-email">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="admin-profile-fullname" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="admin-profile-fullname">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="admin-profile-phone" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="admin-profile-phone">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Change Password</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form id="admin-password-form">
+                                        <div class="mb-3">
+                                            <label for="admin-current-password" class="form-label">Current Password</label>
+                                            <input type="password" class="form-control" id="admin-current-password" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="admin-new-password" class="form-label">New Password</label>
+                                            <input type="password" class="form-control" id="admin-new-password" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="admin-confirm-password" class="form-label">Confirm Password</label>
+                                            <input type="password" class="form-control" id="admin-confirm-password" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" style="display: none;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-book-open me-2"></i>Swastik Library
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#studentNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="studentNavbar">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" onclick="showStudentSection('dashboard')">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showStudentSection('profile')">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showStudentSection('attendance')">Attendance</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showStudentSection('payments')">Payments</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle me-1"></i> <span id="student-nav-name">Student</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" onclick="showStudentSection('profile')">Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" onclick="logout()">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- Student Dashboard Section -->
+            <div id="student-dashboard-section">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Student Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button class="btn btn-primary" onclick="markAttendanceToday()">
+                            <i class="fas fa-calendar-check me-1"></i> Mark Today's Attendance
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Library Timings</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="student-timings">9:00 AM - 6:00 PM</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            This Month Attendance</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="student-month-attendance">15/20</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Payment Status</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="student-payment-status">Paid</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Recent Attendance</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="student-recent-attendance" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Time In</th>
+                                                <th>Time Out</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Filled by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Payment History</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="student-payment-history" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Month</th>
+                                                <th>Amount</th>
+                                                <th>Date Paid</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Filled by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Profile Section -->
+            <div id="student-profile-section" style="display: none;">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">My Profile</h1>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img src="https://via.placeholder.com/150" alt="Student Profile" class="profile-img mb-3">
+                        <h4 id="student-profile-name">Student Name</h4>
+                        <p class="text-muted">Library Member</p>
+                        <div class="card shadow mt-3">
+                            <div class="card-body">
+                                <h6 class="card-title">Library Timings</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Time In</label>
+                                    <input type="time" class="form-control" id="student-time-in">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Time Out</label>
+                                    <input type="time" class="form-control" id="student-time-out">
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="updateStudentTimings()">Update Timings</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Personal Information</h6>
+                            </div>
+                            <div class="card-body">
+                                <form id="student-profile-form">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="student-profile-id" class="form-label">Student ID</label>
+                                            <input type="text" class="form-control" id="student-profile-id" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="student-profile-username" class="form-label">Username</label>
+                                            <input type="text" class="form-control" id="student-profile-username" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="student-profile-fullname" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="student-profile-fullname">
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="student-profile-email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="student-profile-email">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="student-profile-phone" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="student-profile-phone">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="student-profile-address" class="form-label">Address</label>
+                                        <textarea class="form-control" id="student-profile-address" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Change Password</h6>
+                            </div>
+                            <div class="card-body">
+                                <form id="student-password-form">
+                                    <div class="mb-3">
+                                        <label for="student-current-password" class="form-label">Current Password</label>
+                                        <input type="password" class="form-control" id="student-current-password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="student-new-password" class="form-label">New Password</label>
+                                        <input type="password" class="form-control" id="student-new-password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="student-confirm-password" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="student-confirm-password" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Change Password</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Attendance Section -->
+            <div id="student-attendance-section" style="display: none;">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">My Attendance</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <select class="form-select me-2" id="attendance-month-filter">
+                            <option value="0">All Months</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="markAttendanceToday()">
+                            <i class="fas fa-calendar-check me-1"></i> Mark Today's Attendance
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Attendance Calendar</h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="attendance-calendar"></div>
+                    </div>
+                </div>
+
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Attendance Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="student-attendance-table" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Day</th>
+                                        <th>Status</th>
+                                        <th>Time In</th>
+                                        <th>Time Out</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Filled by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Payments Section -->
+            <div id="student-payments-section" style="display: none;">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">My Payments</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <select class="form-select me-2" id="payment-year-filter">
+                            <option value="2023">2023</option>
+                            <option value="2024" selected>2024</option>
+                            <option value="2025">2025</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Payment Summary</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="student-payments-summary" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Amount</th>
+                                        <th>Due Date</th>
+                                        <th>Payment Date</th>
+                                        <th>Status</th>
+                                        <th>Receipt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Filled by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Payment History</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="student-payments-details" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>Month</th>
+                                        <th>Amount</th>
+                                        <th>Payment Date</th>
+                                        <th>Payment Method</th>
+                                        <th>Receipt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Filled by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-student-form">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="new-student-name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="new-student-name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="new-student-username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="new-student-username" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="new-student-password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="new-student-password" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="new-student-email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="new-student-email" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="new-student-phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="new-student-phone" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="new-student-dob" class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" id="new-student-dob" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-student-address" class="form-label">Address</label>
+                            <textarea class="form-control" id="new-student-address" rows="3" required></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="new-student-time-in" class="form-label">Time In</label>
+                                <input type="time" class="form-control" id="new-student-time-in" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="new-student-time-out" class="form-label">Time Out</label>
+                                <input type="time" class="form-control" id="new-student-time-out" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-student-join-date" class="form-label">Join Date</label>
+                            <input type="date" class="form-control" id="new-student-join-date" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewStudent()">Add Student</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Student Modal -->
+    <div class="modal fade" id="editStudentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Student Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-student-form">
+                        <input type="hidden" id="edit-student-id">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="edit-student-name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="edit-student-name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit-student-username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="edit-student-username" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="edit-student-email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="edit-student-email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit-student-phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="edit-student-phone" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-student-address" class="form-label">Address</label>
+                            <textarea class="form-control" id="edit-student-address" rows="3" required></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="edit-student-time-in" class="form-label">Time In</label>
+                                <input type="time" class="form-control" id="edit-student-time-in" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit-student-time-out" class="form-label">Time Out</label>
+                                <input type="time" class="form-control" id="edit-student-time-out" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="edit-student-status" id="edit-student-active" value="Active" checked>
+                                <label class="form-check-label" for="edit-student-active">Active</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="edit-student-status" id="edit-student-inactive" value="Inactive">
+                                <label class="form-check-label" for="edit-student-inactive">Inactive</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateStudentDetails()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Payment Modal -->
+    <div class="modal fade" id="addPaymentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-payment-form">
+                        <div class="mb-3">
+                            <label for="payment-student-id" class="form-label">Student</label>
+                            <select class="form-select" id="payment-student-id" required>
+                                <!-- Filled by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment-month" class="form-label">Month</label>
+                            <select class="form-select" id="payment-month" required>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment-amount" class="form-label">Amount</label>
+                            <input type="number" class="form-control" id="payment-amount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment-date" class="form-label">Payment Date</label>
+                            <input type="date" class="form-control" id="payment-date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment-method" class="form-label">Payment Method</label>
+                            <select class="form-select" id="payment-method" required>
+                                <option value="Cash">Cash</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="Debit Card">Debit Card</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="UPI">UPI</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment-status" class="form-label">Status</label>
+                            <select class="form-select" id="payment-status" required>
+                                <option value="Paid">Paid</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewPayment()">Add Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Payment Modal -->
+    <div class="modal fade" id="editPaymentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Payment Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-payment-form">
+                        <input type="hidden" id="edit-payment-id">
+                        <div class="mb-3">
+                            <label for="edit-payment-student" class="form-label">Student</label>
+                            <input type="text" class="form-control" id="edit-payment-student" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-payment-month" class="form-label">Month</label>
+                            <input type="text" class="form-control" id="edit-payment-month" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-payment-amount" class="form-label">Amount</label>
+                            <input type="number" class="form-control" id="edit-payment-amount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-payment-date" class="form-label">Payment Date</label>
+                            <input type="date" class="form-control" id="edit-payment-date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-payment-method" class="form-label">Payment Method</label>
+                            <select class="form-select" id="edit-payment-method" required>
+                                <option value="Cash">Cash</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="Debit Card">Debit Card</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="UPI">UPI</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-payment-status" class="form-label">Status</label>
+                            <select class="form-select" id="edit-payment-status" required>
+                                <option value="Paid">Paid</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updatePaymentDetails()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mark Attendance Modal -->
+    <div class="modal fade" id="markAttendanceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Mark Attendance for <span id="attendance-student-name"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="mark-attendance-form">
+                        <input type="hidden" id="attendance-student-id">
+                        <input type="hidden" id="attendance-date">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="attendance-status" id="attendance-present" value="Present" checked>
+                                <label class="form-check-label" for="attendance-present">Present</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="attendance-status" id="attendance-absent" value="Absent">
+                                <label class="form-check-label" for="attendance-absent">Absent</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="attendance-status" id="attendance-holiday" value="Holiday">
+                                <label class="form-check-label" for="attendance-holiday">Holiday</label>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="attendance-time-in" class="form-label">Time In</label>
+                                <input type="time" class="form-control" id="attendance-time-in">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="attendance-time-out" class="form-label">Time Out</label>
+                                <input type="time" class="form-control" id="attendance-time-out">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveAttendance()">Save Attendance</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Receipt Modal -->
+    <div class="modal fade" id="viewReceiptModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment Receipt</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="receipt-container p-4 border">
+                        <div class="text-center mb-4">
+                            <h3>Swastik Library</h3>
+                            <p>Library Management System</p>
+                            <hr>
+                            <h4>Payment Receipt</h4>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p><strong>Receipt No:</strong> <span id="receipt-number">LIB-2023-001</span></p>
+                                <p><strong>Date:</strong> <span id="receipt-date">15 Jan 2023</span></p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <p><strong>Student ID:</strong> <span id="receipt-student-id">STU001</span></p>
+                                <p><strong>Student Name:</strong> <span id="receipt-student-name">John Doe</span></p>
+                            </div>
+                        </div>
+                        <table class="table table-bordered mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Library Fees for <span id="receipt-month">January 2023</span></td>
+                                    <td>₹<span id="receipt-amount">500.00</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end"><strong>Total</strong></td>
+                                    <td>₹<span id="receipt-total">500.00</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Payment Method:</strong> <span id="receipt-method">Cash</span></p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <p><strong>Status:</strong> <span id="receipt-status" class="badge bg-success">Paid</span></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center mt-4">
+                            <p>Thank you for your payment!</p>
+                            <p>For any queries, please contact library administration.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="printReceipt()">
+                        <i class="fas fa-print me-1"></i> Print Receipt
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Global variables
+        let currentUser = null;
+        let students = JSON.parse(localStorage.getItem('students')) || [];
+        let payments = JSON.parse(localStorage.getItem('payments')) || [];
+        let attendance = JSON.parse(localStorage.getItem('attendance')) || [];
+        let admin = {
+            username: 'admin',
+            password: 'admin123',
+            name: 'Library Admin',
+            email: 'admin@swastiklibrary.com',
+            phone: '9876543210'
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin exists in localStorage
+            if (!localStorage.getItem('admin')) {
+                localStorage.setItem('admin', JSON.stringify(admin));
+            } else {
+                admin = JSON.parse(localStorage.getItem('admin'));
+            }
+
+            // Initialize form submissions
+            document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                adminLogin();
+            });
+
+            document.getElementById('student-login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                studentLogin();
+            });
+
+            document.getElementById('admin-profile-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateAdminProfile();
+            });
+
+            document.getElementById('admin-password-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                changeAdminPassword();
+            });
+
+            document.getElementById('student-profile-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateStudentProfile();
+            });
+
+            document.getElementById('student-password-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                changeStudentPassword();
+            });
+
+            // Initialize date pickers
+            flatpickr("#attendance-date", {});
+            flatpickr("#report-start-date", {});
+            flatpickr("#report-end-date", {});
+            flatpickr("#new-student-dob", {});
+            flatpickr("#new-student-join-date", {});
+            flatpickr("#payment-date", {});
+
+            // Show home page by default
+            showHomePage();
+        });
+
+        // Page navigation functions
+        function showHomePage() {
+            document.getElementById('home-page').style.display = 'block';
+            document.getElementById('admin-login-page').style.display = 'none';
+            document.getElementById('student-login-page').style.display = 'none';
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('student-dashboard').style.display = 'none';
+        }
+
+        function showAdminLogin() {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('admin-login-page').style.display = 'block';
+            document.getElementById('student-login-page').style.display = 'none';
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('student-dashboard').style.display = 'none';
+        }
+
+        function showStudentLogin() {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('admin-login-page').style.display = 'none';
+            document.getElementById('student-login-page').style.display = 'block';
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('student-dashboard').style.display = 'none';
+        }
+
+        function showAdminDashboard() {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('admin-login-page').style.display = 'none';
+            document.getElementById('student-login-page').style.display = 'none';
+            document.getElementById('admin-dashboard').style.display = 'block';
+            document.getElementById('student-dashboard').style.display = 'none';
+
+            // Load admin data
+            loadAdminDashboard();
+            showAdminSection('dashboard');
+        }
+
+        function showStudentDashboard() {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('admin-login-page').style.display = 'none';
+            document.getElementById('student-login-page').style.display = 'none';
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('student-dashboard').style.display = 'block';
+
+            // Load student data
+            loadStudentDashboard();
+            showStudentSection('dashboard');
+        }
+
+        // Admin section navigation
+        function showAdminSection(section) {
+            // Hide all sections first
+            document.getElementById('admin-dashboard-section').style.display = 'none';
+            document.getElementById('admin-students-section').style.display = 'none';
+            document.getElementById('admin-attendance-section').style.display = 'none';
+            document.getElementById('admin-payments-section').style.display = 'none';
+            document.getElementById('admin-reports-section').style.display = 'none';
+            document.getElementById('admin-profile-section').style.display = 'none';
+
+            // Show the selected section
+            switch(section) {
+                case 'dashboard':
+                    document.getElementById('admin-dashboard-section').style.display = 'block';
+                    break;
+                case 'students':
+                    document.getElementById('admin-students-section').style.display = 'block';
+                    loadStudentsTable();
+                    break;
+                case 'attendance':
+                    document.getElementById('admin-attendance-section').style.display = 'block';
+                    // Set today's date by default
+                    const today = new Date().toISOString().split('T')[0];
+                    document.getElementById('attendance-date').value = today;
+                    loadAttendanceForDate();
+                    break;
+                case 'payments':
+                    document.getElementById('admin-payments-section').style.display = 'block';
+                    loadPaymentsTable();
+                    break;
+                case 'reports':
+                    document.getElementById('admin-reports-section').style.display = 'block';
+                    break;
+                case 'profile':
+                    document.getElementById('admin-profile-section').style.display = 'block';
+                    loadAdminProfile();
+                    break;
+            }
+
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(section)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Student section navigation
+        function showStudentSection(section) {
+            // Hide all sections first
+            document.getElementById('student-dashboard-section').style.display = 'none';
+            document.getElementById('student-profile-section').style.display = 'none';
+            document.getElementById('student-attendance-section').style.display = 'none';
+            document.getElementById('student-payments-section').style.display = 'none';
+
+            // Show the selected section
+            switch(section) {
+                case 'dashboard':
+                    document.getElementById('student-dashboard-section').style.display = 'block';
+                    break;
+                case 'profile':
+                    document.getElementById('student-profile-section').style.display = 'block';
+                    loadStudentProfile();
+                    break;
+                case 'attendance':
+                    document.getElementById('student-attendance-section').style.display = 'block';
+                    loadStudentAttendance();
+                    break;
+                case 'payments':
+                    document.getElementById('student-payments-section').style.display = 'block';
+                    loadStudentPayments();
+                    break;
+            }
+
+            // Update active nav link
+            const navLinks = document.querySelectorAll('#studentNavbar .nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(section)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Login functions
+        function adminLogin() {
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+
+            if (username === admin.username && password === admin.password) {
+                currentUser = {
+                    type: 'admin',
+                    username: admin.username,
+                    name: admin.name
+                };
+                showAdminDashboard();
+            } else {
+                alert('Invalid admin credentials!');
+            }
+        }
+
+        function studentLogin() {
+            const username = document.getElementById('student-username').value;
+            const password = document.getElementById('student-password').value;
+
+            const student = students.find(s => s.username === username && s.password === password);
+            if (student) {
+                currentUser = {
+                    type: 'student',
+                    id: student.id,
+                    username: student.username,
+                    name: student.name
+                };
+                showStudentDashboard();
+            } else {
+                alert('Invalid student credentials!');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            showHomePage();
+        }
+
+        // Admin dashboard functions
+        function loadAdminDashboard() {
+            // Update admin name in sidebar
+            document.getElementById('admin-name').textContent = admin.name;
+
+            // Calculate stats
+            document.getElementById('total-students').textContent = students.length;
+
+            const today = new Date().toISOString().split('T')[0];
+            const todayAttendance = attendance.filter(a => a.date === today && a.status === 'Present').length;
+            document.getElementById('today-attendance').textContent = todayAttendance;
+
+            const pendingPayments = payments.filter(p => p.status !== 'Paid').length;
+            document.getElementById('pending-payments').textContent = pendingPayments;
+
+            // Load recent students
+            const recentStudentsTable = document.getElementById('recent-students').getElementsByTagName('tbody')[0];
+            recentStudentsTable.innerHTML = '';
+            const recentStudents = students.slice(-5).reverse();
+            recentStudents.forEach(student => {
+                const row = recentStudentsTable.insertRow();
+                row.insertCell(0).textContent = student.name;
+                row.insertCell(1).textContent = student.id;
+                row.insertCell(2).textContent = student.joinDate;
+            });
+
+            // Load recent payments
+            const recentPaymentsTable = document.getElementById('recent-payments').getElementsByTagName('tbody')[0];
+            recentPaymentsTable.innerHTML = '';
+            const recentPayments = payments.slice(-5).reverse();
+            recentPayments.forEach(payment => {
+                const student = students.find(s => s.id === payment.studentId);
+                const row = recentPaymentsTable.insertRow();
+                row.insertCell(0).textContent = student ? student.name : 'Unknown';
+                row.insertCell(1).textContent = payment.month;
+                row.insertCell(2).textContent = '₹' + payment.amount;
+            });
+        }
+
+        function loadAdminProfile() {
+            document.getElementById('admin-profile-username').value = admin.username;
+            document.getElementById('admin-profile-email').value = admin.email;
+            document.getElementById('admin-profile-fullname').value = admin.name;
+            document.getElementById('admin-profile-phone').value = admin.phone;
+            document.getElementById('admin-profile-name').textContent = admin.name;
+        }
+
+        function updateAdminProfile() {
+            admin.email = document.getElementById('admin-profile-email').value;
+            admin.name = document.getElementById('admin-profile-fullname').value;
+            admin.phone = document.getElementById('admin-profile-phone').value;
+
+            localStorage.setItem('admin', JSON.stringify(admin));
+            document.getElementById('admin-name').textContent = admin.name;
+            document.getElementById('admin-profile-name').textContent = admin.name;
+
+            alert('Profile updated successfully!');
+        }
+
+        function changeAdminPassword() {
+            const currentPassword = document.getElementById('admin-current-password').value;
+            const newPassword = document.getElementById('admin-new-password').value;
+            const confirmPassword = document.getElementById('admin-confirm-password').value;
+
+            if (currentPassword !== admin.password) {
+                alert('Current password is incorrect!');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+
+            admin.password = newPassword;
+            localStorage.setItem('admin', JSON.stringify(admin));
+
+            // Clear form
+            document.getElementById('admin-current-password').value = '';
+            document.getElementById('admin-new-password').value = '';
+            document.getElementById('admin-confirm-password').value = '';
+
+            alert('Password changed successfully!');
+        }
+
+        // Student management functions
+        function loadStudentsTable() {
+            const table = document.getElementById('students-table').getElementsByTagName('tbody')[0];
+            table.innerHTML = '';
+
+            students.forEach(student => {
+                const row = table.insertRow();
+                row.insertCell(0).textContent = student.id;
+                row.insertCell(1).textContent = student.name;
+                row.insertCell(2).textContent = student.phone;
+                row.insertCell(3).textContent = student.address;
+                row.insertCell(4).textContent = `${student.timeIn} - ${student.timeOut}`;
+                row.insertCell(5).textContent = student.status || 'Active';
+
+                // Action buttons
+                const actionsCell = row.insertCell(6);
+                actionsCell.innerHTML = `
+                    <button class="btn btn-sm btn-primary me-1" onclick="editStudent('${student.id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteStudent('${student.id}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+            });
+        }
+
+        function showAddStudentModal() {
+            // Clear form
+            document.getElementById('add-student-form').reset();
+            
+            // Set default values
+            document.getElementById('new-student-time-in').value = '09:00';
+            document.getElementById('new-student-time-out').value = '18:00';
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('addStudentModal'));
+            modal.show();
+        }
+
+        function addNewStudent() {
+            // Generate student ID
+            const studentId = 'STU' + (students.length + 1).toString().padStart(3, '0');
+            
+            // Create new student object
+            const newStudent = {
+                id: studentId,
+                name: document.getElementById('new-student-name').value,
+                username: document.getElementById('new-student-username').value,
+                password: document.getElementById('new-student-password').value,
+                email: document.getElementById('new-student-email').value,
+                phone: document.getElementById('new-student-phone').value,
+                dob: document.getElementById('new-student-dob').value,
+                address: document.getElementById('new-student-address').value,
+                timeIn: document.getElementById('new-student-time-in').value,
+                timeOut: document.getElementById('new-student-time-out').value,
+                joinDate: document.getElementById('new-student-join-date').value,
+                status: 'Active'
+            };
+
+            // Add to students array
+            students.push(newStudent);
+            localStorage.setItem('students', JSON.stringify(students));
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addStudentModal'));
+            modal.hide();
+
+            // Refresh students table
+            loadStudentsTable();
+
+            alert('Student added successfully!');
+        }
+
+        function editStudent(studentId) {
+            const student = students.find(s => s.id === studentId);
+            if (!student) return;
+
+            // Fill form with student data
+            document.getElementById('edit-student-id').value = student.id;
+            document.getElementById('edit-student-name').value = student.name;
+            document.getElementById('edit-student-username').value = student.username;
+            document.getElementById('edit-student-email').value = student.email;
+            document.getElementById('edit-student-phone').value = student.phone;
+            document.getElementById('edit-student-address').value = student.address;
+            document.getElementById('edit-student-time-in').value = student.timeIn;
+            document.getElementById('edit-student-time-out').value = student.timeOut;
+
+            // Set status radio button
+            if (student.status === 'Inactive') {
+                document.getElementById('edit-student-inactive').checked = true;
+            } else {
+                document.getElementById('edit-student-active').checked = true;
+            }
+
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('editStudentModal'));
+            modal.show();
+        }
+
+        function updateStudentDetails() {
+            const studentId = document.getElementById('edit-student-id').value;
+            const studentIndex = students.findIndex(s => s.id === studentId);
+            if (studentIndex === -1) return;
+
+            // Update student data
+            students[studentIndex].name = document.getElementById('edit-student-name').value;
+            students[studentIndex].email = document.getElementById('edit-student-email').value;
+            students[studentIndex].phone = document.getElementById('edit-student-phone').value;
+            students[studentIndex].address = document.getElementById('edit-student-address').value;
+            students[studentIndex].timeIn = document.getElementById('edit-student-time-in').value;
+            students[studentIndex].timeOut = document.getElementById('edit-student-time-out').value;
+            students[studentIndex].status = document.querySelector('input[name="edit-student-status"]:checked').value;
+
+            // Save to localStorage
+            localStorage.setItem('students', JSON.stringify(students));
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editStudentModal'));
+            modal.hide();
+
+            // Refresh students table
+            loadStudentsTable();
+
+            alert('Student details updated successfully!');
+        }
+
+        function deleteStudent(studentId) {
+            if (confirm('Are you sure you want to delete this student?')) {
+                students = students.filter(s => s.id !== studentId);
+                localStorage.setItem('students', JSON.stringify(students));
+                loadStudentsTable();
+                alert('Student deleted successfully!');
+            }
+        }
+
+        // Attendance management functions
+        function loadAttendanceForDate() {
+            const date = document.getElementById('attendance-date').value;
+            const table = document.getElementById('attendance-table').getElementsByTagName('tbody')[0];
+            table.innerHTML = '';
+
+            // Get attendance for the selected date
+            const dateAttendance = attendance.filter(a => a.date === date);
+
+            students.forEach(student => {
+                // Find attendance record for this student and date
+                const attendanceRecord = dateAttendance.find(a => a.studentId === student.id) || {
+                    studentId: student.id,
+                    date: date,
+                    status: 'Absent',
+                    timeIn: '',
+                    timeOut: ''
+                };
+
+                const row = table.insertRow();
+                row.insertCell(0).textContent = student.id;
+                row.insertCell(1).textContent = student.name;
+                row.insertCell(2).textContent = attendanceRecord.status;
+
+                // Time in and out cells
+                const timeInCell = row.insertCell(3);
+                const timeOutCell = row.insertCell(4);
+                
+                if (attendanceRecord.status === 'Present') {
+                    timeInCell.textContent = attendanceRecord.timeIn || '-';
+                    timeOutCell.textContent = attendanceRecord.timeOut || '-';
+                } else {
+                    timeInCell.textContent = '-';
+                    timeOutCell.textContent = '-';
+                }
+
+                // Action buttons
+                const actionsCell = row.insertCell(5);
+                actionsCell.innerHTML = `
+                    <button class="btn btn-sm btn-primary" onclick="showMarkAttendanceModal('${student.id}', '${student.name}', '${date}')">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                `;
+            });
+        }
+
+        function showMarkAttendanceModal(studentId, studentName, date) {
+            document.getElementById('attendance-student-id').value = studentId;
+            document.getElementById('attendance-student-name').textContent = studentName;
+            document.getElementById('attendance-date').value = date;
+
+            // Find existing attendance record
+            const attendanceRecord = attendance.find(a => a.studentId === studentId && a.date === date);
+
+            if (attendanceRecord) {
+                // Set existing values
+                document.querySelector(`input[name="attendance-status"][value="${attendanceRecord.status}"]`).checked = true;
+                document.getElementById('attendance-time-in').value = attendanceRecord.timeIn || '';
+                document.getElementById('attendance-time-out').value = attendanceRecord.timeOut || '';
+            } else {
+                // Set default values
+                document.getElementById('attendance-present').checked = true;
+                document.getElementById('attendance-time-in').value = '';
+                document.getElementById('attendance-time-out').value = '';
+            }
+
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('markAttendanceModal'));
+            modal.show();
+        }
+
+        function saveAttendance() {
+            const studentId = document.getElementById('attendance-student-id').value;
+            const date = document.getElementById('attendance-date').value;
+            const status = document.querySelector('input[name="attendance-status"]:checked').value;
+            const timeIn = document.getElementById('attendance-time-in').value;
+            const timeOut = document.getElementById('attendance-time-out').value;
+
+            // Find existing attendance record index
+            const existingIndex = attendance.findIndex(a => a.studentId === studentId && a.date === date);
+
+            if (existingIndex !== -1) {
+                // Update existing record
+                attendance[existingIndex].status = status;
+                attendance[existingIndex].timeIn = timeIn;
+                attendance[existingIndex].timeOut = timeOut;
+            } else {
+                // Add new record
+                attendance.push({
+                    studentId: studentId,
+                    date: date,
+                    status: status,
+                    timeIn: timeIn,
+                    timeOut: timeOut
+                });
+            }
+
+            // Save to localStorage
+            localStorage.setItem('attendance', JSON.stringify(attendance));
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('markAttendanceModal'));
+            modal.hide();
+
+            // Refresh attendance table
+            loadAttendanceForDate();
+
+            alert('Attendance saved successfully!');
+        }
+
+        function markAllPresent() {
+            const date = document.getElementById('attendance-date').value;
+            const studentIds = students.map(s => s.id);
+
+            studentIds.forEach(studentId => {
+                // Find existing attendance record index
+                const existingIndex = attendance.findIndex(a => a.studentId === studentId && a.date === date);
+
+                if (existingIndex !== -1) {
+                    // Update existing record to Present
+                    attendance[existingIndex].status = 'Present';
+                } else {
+                    // Add new Present record
+                    attendance.push({
+                        studentId: studentId,
+                        date: date,
+                        status: 'Present',
+                        timeIn: '',
+                        timeOut: ''
+                    });
+                }
+            });
+
+            // Save to localStorage
+            localStorage.setItem('attendance', JSON.stringify(attendance));
+
+            // Refresh attendance table
+            loadAttendanceForDate();
+
+            alert('All students marked as present!');
+        }
+
+        // Payment management functions
+        function loadPaymentsTable() {
+            const table = document.getElementById('payments-table').getElementsByTagName('tbody')[0];
+            table.innerHTML = '';
+
+            const monthFilter = document.getElementById('payment-month-filter').value;
+
+            // Filter payments if month is selected
+            let filteredPayments = payments;
+            if (monthFilter) {
+                filteredPayments = payments.filter(p => p.month === monthFilter);
+            }
+
+            filteredPayments.forEach(payment => {
+                const student = students.find(s => s.id === payment.studentId);
+                const row = table.insertRow();
+                row.insertCell(0).textContent = payment.studentId;
+                row.insertCell(1).textContent = student ? student.name : 'Unknown';
+                row.insertCell(2).textContent = payment.month;
+                row.insertCell(3).textContent = '₹' + payment.amount;
+                row.insertCell(4).textContent = payment.paymentDate;
+                
+                // Status cell with badge
+                const statusCell = row.insertCell(5);
+                const badgeClass = payment.status === 'Paid' ? 'bg-success' : payment.status === 'Pending' ? 'bg-warning' : 'bg-danger';
+                statusCell.innerHTML = `<span class="badge ${badgeClass}">${payment.status}</span>`;
+
+                // Action buttons
+                const actionsCell = row.insertCell(6);
+                actionsCell.innerHTML = `
+                    <button class="btn btn-sm btn-primary me-1" onclick="editPayment('${payment.id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="deletePayment('${payment.id}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+            });
+        }
+
+        function showAddPaymentModal() {
+            // Clear form
+            document.getElementById('add-payment-form').reset();
+            
+            // Set default values
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('payment-date').value = today;
+            document.getElementById('payment-amount').value = '500';
+            
+            // Populate student dropdown
+            const studentSelect = document.getElementById('payment-student-id');
+            studentSelect.innerHTML = '';
+            students.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.id;
+                option.textContent = `${student.id} - ${student.name}`;
+                studentSelect.appendChild(option);
+            });
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('addPaymentModal'));
+            modal.show();
+        }
+
+        function addNewPayment() {
+            // Generate payment ID
+            const paymentId = 'PAY' + (payments.length + 1).toString().padStart(3, '0');
+            
+            // Create new payment object
+            const newPayment = {
+                id: paymentId,
+                studentId: document.getElementById('payment-student-id').value,
+                month: document.getElementById('payment-month').value,
+                amount: document.getElementById('payment-amount').value,
+                paymentDate: document.getElementById('payment-date').value,
+                paymentMethod: document.getElementById('payment-method').value,
+                status: document.getElementById('payment-status').value
+            };
+
+            // Add to payments array
+            payments.push(newPayment);
+            localStorage.setItem('payments', JSON.stringify(payments));
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addPaymentModal'));
+            modal.hide();
+
+            // Refresh payments table
+            loadPaymentsTable();
+
+            alert('Payment added successfully!');
+        }
+
+        function editPayment(paymentId) {
+            const payment = payments.find(p => p.id === paymentId);
+            if (!payment) return;
+
+            // Fill form with payment data
+            document.getElementById('edit-payment-id').value = payment.id;
+            
+            const student = students.find(s => s.id === payment.studentId);
+            document.getElementById('edit-payment-student').value = student ? `${student.id} - ${student.name}` : payment.studentId;
+            
+            document.getElementById('edit-payment-month').value = payment.month;
+            document.getElementById('edit-payment-amount').value = payment.amount;
+            document.getElementById('edit-payment-date').value = payment.paymentDate;
+            document.getElementById('edit-payment-method').value = payment.paymentMethod;
+            document.getElementById('edit-payment-status').value = payment.status;
+
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('editPaymentModal'));
+            modal.show();
+        }
+
+        function updatePaymentDetails() {
+            const paymentId = document.getElementById('edit-payment-id').value;
+            const paymentIndex = payments.findIndex(p => p.id === paymentId);
+            if (paymentIndex === -1) return;
+
+            // Update payment data
+            payments[paymentIndex].amount = document.getElementById('edit-payment-amount').value;
+            payments[paymentIndex].paymentDate = document.getElementById('edit-payment-date').value;
+            payments[paymentIndex].paymentMethod = document.getElementById('edit-payment-method').value;
+            payments[paymentIndex].status = document.getElementById('edit-payment-status').value;
+
+            // Save to localStorage
+            localStorage.setItem('payments', JSON.stringify(payments));
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editPaymentModal'));
+            modal.hide();
+
+            // Refresh payments table
+            loadPaymentsTable();
+
+            alert('Payment details updated successfully!');
+        }
+
+        function deletePayment(paymentId) {
+            if (confirm('Are you sure you want to delete this payment record?')) {
+                payments = payments.filter(p => p.id !== paymentId);
+                localStorage.setItem('payments', JSON.stringify(payments));
+                loadPaymentsTable();
+                alert('Payment record deleted successfully!');
+            }
+        }
+
+        function viewReceipt(paymentId) {
+            const payment = payments.find(p => p.id === paymentId);
+            if (!payment) return;
+
+            const student = students.find(s => s.id === payment.studentId);
+
+            // Fill receipt data
+            document.getElementById('receipt-number').textContent = payment.id;
+            document.getElementById('receipt-date').textContent = new Date(payment.paymentDate).toLocaleDateString();
+            document.getElementById('receipt-student-id').textContent = payment.studentId;
+            document.getElementById('receipt-student-name').textContent = student ? student.name : 'Unknown';
+            document.getElementById('receipt-month').textContent = payment.month;
+            document.getElementById('receipt-amount').textContent = payment.amount;
+            document.getElementById('receipt-total').textContent = payment.amount;
+            document.getElementById('receipt-method').textContent = payment.paymentMethod;
+            
+            // Set status badge
+            const statusBadge = document.getElementById('receipt-status');
+            statusBadge.textContent = payment.status;
+            statusBadge.className = 'badge ' + (payment.status === 'Paid' ? 'bg-success' : payment.status === 'Pending' ? 'bg-warning' : 'bg-danger');
+
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('viewReceiptModal'));
+            modal.show();
+        }
+
+        function printReceipt() {
+            const receiptContent = document.querySelector('.receipt-container').innerHTML;
+            const originalContent = document.body.innerHTML;
+            
+            document.body.innerHTML = receiptContent;
+            window.print();
+            
+            document.body.innerHTML = originalContent;
+            
+            // Re-initialize any necessary event listeners
+            document.getElementById('student-password-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                changeStudentPassword();
+            });
+        }
+
+        // Report generation
+        function generateReport() {
+            const reportType = document.getElementById('report-type').value;
+            const startDate = document.getElementById('report-start-date').value;
+            const endDate = document.getElementById('report-end-date').value;
+            
+            const table = document.getElementById('report-table').getElementsByTagName('tbody')[0];
+            table.innerHTML = '';
+
+            if (reportType === 'attendance') {
+                // Generate attendance report
+                const filteredAttendance = attendance.filter(a => {
+                    return (!startDate || a.date >= startDate) && (!endDate || a.date <= endDate);
+                });
+
+                // Group by date
+                const attendanceByDate = {};
+                filteredAttendance.forEach(record => {
+                    if (!attendanceByDate[record.date]) {
+                        attendanceByDate[record.date] = {
+                            present: 0,
+                            absent: 0,
+                            holiday: 0
+                        };
+                    }
+                    attendanceByDate[record.date][record.status.toLowerCase()]++;
+                });
+
+                // Add to table
+                Object.keys(attendanceByDate).sort().forEach(date => {
+                    const row = table.insertRow();
+                    row.insertCell(0).textContent = date;
+                    row.insertCell(1).textContent = 'Attendance Summary';
+                    row.insertCell(2).textContent = `P: ${attendanceByDate[date].present}, A: ${attendanceByDate[date].absent}, H: ${attendanceByDate[date].holiday}`;
+                    row.insertCell(3).textContent = '-';
+                });
+            } else if (reportType === 'payments') {
+                // Generate payments report
+                const filteredPayments = payments.filter(p => {
+                    return (!startDate || p.paymentDate >= startDate) && (!endDate || p.paymentDate <= endDate);
+                });
+
+                // Group by date
+                const paymentsByDate = {};
+                filteredPayments.forEach(payment => {
+                    if (!paymentsByDate[payment.paymentDate]) {
+                        paymentsByDate[payment.paymentDate] = {
+                            count: 0,
+                            total: 0
+                        };
+                    }
+                    paymentsByDate[payment.paymentDate].count++;
+                    paymentsByDate[payment.paymentDate].total += parseFloat(payment.amount);
+                });
+
+                // Add to table
+                Object.keys(paymentsByDate).sort().forEach(date => {
+                    const row = table.insertRow();
+                    row.insertCell(0).textContent = date;
+                    row.insertCell(1).textContent = 'Payments Summary';
+                    row.insertCell(2).textContent = paymentsByDate[date].count;
+                    row.insertCell(3).textContent = '₹' + paymentsByDate[date].total.toFixed(2);
+                });
+            } else if (reportType === 'students') {
+                // Generate students report
+                const filteredStudents = students.filter(s => {
+                    return (!startDate || s.joinDate >= startDate) && (!endDate || s.joinDate <= endDate);
+                });
+
+                // Group by join date
+                const studentsByDate = {};
+                filteredStudents.forEach(student => {
+                    if (!studentsByDate[student.joinDate]) {
+                        studentsByDate[student.joinDate] = 0;
+                    }
+                    studentsByDate[student.joinDate]++;
+                });
+
+                // Add to table
+                Object.keys(studentsByDate).sort().forEach(date => {
+                    const row = table.insertRow();
+                    row.insertCell(0).textContent = date;
+                    row.insertCell(1).textContent = 'New Students';
+                    row.insertCell(2).textContent = studentsByDate[date];
+                    row.insertCell(3).textContent = '-';
+                });
+            }
+        }
+
+        // Student dashboard functions
+        function loadStudentDashboard() {
+            if (!currentUser || currentUser.type !== 'student') return;
+
+            const student = students.find(s => s.id === currentUser.id);
+            if (!student) return;
+
+            // Update student name in navbar
+            document.getElementById('student-nav-name').textContent = student.name;
+
+            // Set student timings
+            document.getElementById('student-timings').textContent = `${student.timeIn} - ${student.timeOut}`;
+
+            // Calculate this month's attendance
+            const currentMonth = new Date().getMonth() + 1; // 1-12
+            const currentYear = new Date().getFullYear();
+            
+            const monthAttendance = attendance.filter(a => {
+                const dateParts = a.date.split('-');
+                return a.studentId === student.id && 
+                       parseInt(dateParts[1]) === currentMonth && 
+                       parseInt(dateParts[0]) === currentYear;
+            });
+            
+            const presentDays = monthAttendance.filter(a => a.status === 'Present').length;
+            const totalDays = new Date(currentYear, currentMonth, 0).getDate(); // Days in current month
+            
+            document.getElementById('student-month-attendance').textContent = `${presentDays}/${totalDays}`;
+
+            // Check payment status for current month
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const currentMonthName = monthNames[currentMonth - 1];
+            
+            const monthPayment = payments.find(p => 
+                p.studentId === student.id && 
+                p.month === currentMonthName && 
+                p.status === 'Paid'
+            );
+            
+            document.getElementById('student-payment-status').textContent = monthPayment ? 'Paid' : 'Pending';
+
+            // Load recent attendance
+            const recentAttendanceTable = document.getElementById('student-recent-attendance').getElementsByTagName('tbody')[0];
+            recentAttendanceTable.innerHTML = '';
+            
+            const recentAttendance = attendance
+                .filter(a => a.studentId === student.id)
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5);
+            
+            recentAttendance.forEach(record => {
+                const row = recentAttendanceTable.insertRow();
+                row.insertCell(0).textContent = record.date;
+                row.insertCell(1).textContent = record.status;
+                row.insertCell(2).textContent = record.timeIn || '-';
+                row.insertCell(3).textContent = record.timeOut || '-';
+            });
+
+            // Load payment history
+            const paymentHistoryTable = document.getElementById('student-payment-history').getElementsByTagName('tbody')[0];
+            paymentHistoryTable.innerHTML = '';
+            
+            const studentPayments = payments
+                .filter(p => p.studentId === student.id)
+                .sort((a, b) => {
+                    const monthOrder = monthNames.indexOf(a.month) - monthNames.indexOf(b.month);
+                    return monthOrder !== 0 ? monthOrder : new Date(b.paymentDate) - new Date(a.paymentDate);
+                })
+                .slice(0, 5);
+            
+            studentPayments.forEach(payment => {
+                const row = paymentHistoryTable.insertRow();
+                row.insertCell(0).textContent = payment.month;
+                row.insertCell(1).textContent = '₹' + payment.amount;
+                row.insertCell(2).textContent = payment.paymentDate;
+                
+                const statusCell = row.insertCell(3);
+                const badgeClass = payment.status === 'Paid' ? 'bg-success' : payment.status === 'Pending' ? 'bg-warning' : 'bg-danger';
+                statusCell.innerHTML = `<span class="badge ${badgeClass}">${payment.status}</span>`;
+            });
+        }
+
+        function loadStudentProfile() {
+            if (!currentUser || currentUser.type !== 'student') return;
+
+            const student = students.find(s => s.id === currentUser.id);
+            if (!student) return;
+
+            // Fill profile form
+            document.getElementById('student-profile-id').value = student.id;
+            document.getElementById('student-profile-username').value = student.username;
+            document.getElementById('student-profile-fullname').value = student.name;
+            document.getElementById('student-profile-email').value = student.email;
+            document.getElementById('student-profile-phone').value = student.phone;
+            document.getElementById('student-profile-address').value = student.address;
+            document.getElementById('student-time-in').value = student.timeIn;
+            document.getElementById('student-time-out').value = student.timeOut;
+
+            // Set profile image and name
+            document.getElementById('student-profile-name').textContent = student.name;
+        }
+
+        function updateStudentProfile() {
+            if (!currentUser || currentUser.type !== 'student') return;
+
+            const studentIndex = students.findIndex(s => s.id === currentUser.id);
+            if (studentIndex === -1) return;
+
+            // Update student data
+            students[studentIndex].name = document.getElementById('student-profile-fullname').value;
+            students[studentIndex].email = document.getElementById('student-profile-email').value;
+            students[studentIndex].phone = document.getElementById('student-profile-phone').value;
+            students[studentIndex].address = document.getElementById('student-profile-address').value;
+
+            // Save to localStorage
+            localStorage.setItem('students', JSON.stringify(students));
+
+            // Update current user name
+            currentUser.name = students[studentIndex].name;
+            document.getElementById('student-nav-name').textContent = currentUser.name;
+
+            alert('Profile updated successfully!');
+        }
+
+        function updateStudentTimings() {
+            if (!currentUser || currentUser.type !== 'student') return;
+
+            const studentIndex = students.findIndex(s => s.id === currentUser.id);
+            if (studentIndex === -1) return;
+
+            // Update student timings
+            students[studentIndex].timeIn = document.getElementById('student-time-in').value;
+            students[studentIndex].timeOut = document.getElementById('student-time-out').value;
+
+            // Save to localStorage
+            localStorage.setItem('students', JSON.stringify(students));
+
+            // Update dashboard display
+            document.getElementById('student-timings').textContent = `${students[studentIndex].timeIn} - ${students[studentIndex].timeOut}`;
+
+            alert('Library timings updated successfully!');
+        }
+
+        function changeStudentPassword() {
+            if (!currentUser || currentUser.type !== 'student') return;
+
+            const studentIndex = students.findIndex(s => s.id === currentUser.id);
+            if (studentIndex === -1) return;
+
+            const currentPassword = document.getElementById('student-current-password').value;
+            const newPassword = document.getElementById('student-new-password').value;
+            const confirmPassword = document.getElementById('student-confirm-password').value;
+
+            if (currentPassword !== students[studentIndex].password) {
+                alert('Current password is incorrect!');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+
+            // Update password
+            students[studentIndex].password = newPassword;
+            localStorage.setItem('students', JSON.stringify(students));
+
+            // Clear form
+            document.getElementById('student-current-password').value = '';
+            document.getElementById('student-new-password').value = '';
+            document.getElementById('student-confirm-password').value = '';
+
+            alert('Password changed successfully!');
+        }
+
+        function loadStudentAttendance() {
+            if (!currentUser || currentUser.type !== 'student') return;
+
+            const monthFilter = parseInt(document.getElementById('attendance-month-filter').value);
+            const studentId = currentUser.id;
+
+            // Filter attendance
+            let filteredAttendance = attendance.filter(a => a.studentId === studentId);
+            
+            if (monthFilter > 0) {
+                filteredAttendance = filteredAttendance.filter(a => {
+                    const dateParts = a.date.split('-');
+                    return parseInt(dateParts[1]) === monthFilter;
+                });
+            }
+
+            // Sort by date descending
+            filteredAttendance.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Fill attendance table
+            const table = document.getElementById('student-attendance-table').getElementsByTagName('tbody')[0];
+            table.innerHTML = '';
+
+            filteredAttendance.forEach(record => {
+                const date = new Date(record.date);
+                const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const dayName = dayNames[date.getDay()];
+                
+                const row = table.insertRow();
+                row.insertCell(0).textContent = record.date;
+                row.insertCell(1).textContent = dayName;
+                row.insertCell(2).textContent = record.status;
+                row.insertCell(3).textContent = record.timeIn || '-';
+                row.insertCell(4).textContent = record.timeOut || '-';
+            });
+
+            // Initialize calendar (simplified version)
+            // In a real app, you would use a proper calendar library like FullCalendar
+            const calendarEl = document.getElementById('attendance-calendar');
+            calendarEl.innerHTML = '';
+
+            // Create a simple calendar display
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const currentDate = new Date();
+            const currentMonth = monthFilter > 0 ? monthFilter - 1 : currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+            
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            
+            const calendarHeader = document.createElement('div');
+            calendarHeader.className = 'calendar-header';
+            calendarHeader.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            calendarEl.appendChild(calendarHeader);
+            
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const dayNamesRow = document.createElement('div');
+            dayNamesRow.className = 'calendar-day-names';
+            
+            dayNames.forEach(day => {
+                const dayNameEl = document.createElement('div');
+                dayNameEl.textContent = day;
+                dayNamesRow.appendChild(dayNameEl);
+            });
+            
+            calendarEl.appendChild(dayNamesRow);
+            
+            const calendarGrid = document.createElement('div');
+            calendarGrid.className = 'calendar-grid';
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-day empty';
+                calendarGrid.appendChild(emptyCell);
+            }
+            
+            // Add cells for each day of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                const attendanceRecord = filteredAttendance.find(a => a.date === dateStr);
+                
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = day;
+                
+                if (attendanceRecord) {
+                    dayCell.classList.add(attendanceRecord.status.toLowerCase());
+                    dayCell.title = `${attendanceRecord.status}\nTime In: ${attendanceRecord.timeIn || '-'}\nTime Out: ${attendanceRecord.timeOut || '-'}`;
+                }
+                
+                calendarGrid.appendChild(dayCell);
+            }
+            
+            calendarEl.appendChild(calendarGrid);
+        }
+
+        function loadStudentPayments() {
+            if (!currentUser || currentUser.type !== 'student') return;
+
+            const yearFilter = document.getElementById('payment-year-filter').value;
+            const studentId = currentUser.id;
+
+            // Filter payments by student and year
+            let filteredPayments = payments.filter(p => p.studentId === studentId);
+            
+            if (yearFilter) {
+                filteredPayments = filteredPayments.filter(p => {
+                    return p.paymentDate.startsWith(yearFilter);
+                });
+            }
+
+            // Sort by month (January to December)
+            const monthOrder = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            filteredPayments.sort((a, b) => {
+                return monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month);
+            });
+
+            // Fill payment summary table
+            const summaryTable = document.getElementById('student-payments-summary').getElementsByTagName('tbody')[0];
+            summaryTable.innerHTML = '';
+
+            // Group by month
+            const paymentsByMonth = {};
+            filteredPayments.forEach(payment => {
+                if (!paymentsByMonth[payment.month]) {
+                    paymentsByMonth[payment.month] = [];
+                }
+                paymentsByMonth[payment.month].push(payment);
+            });
+
+            // Add to summary table
+            monthOrder.forEach(month => {
+                if (paymentsByMonth[month]) {
+                    const paidPayment = paymentsByMonth[month].find(p => p.status === 'Paid');
+                    const row = summaryTable.insertRow();
+                    
+                    row.insertCell(0).textContent = month;
+                    row.insertCell(1).textContent = '₹500'; // Assuming fixed amount
+                    
+                    if (paidPayment) {
+                        row.insertCell(2).textContent = '1st'; // Due date
+                        row.insertCell(3).textContent = paidPayment.paymentDate;
+                        
+                        const statusCell = row.insertCell(4);
+                        statusCell.innerHTML = '<span class="badge bg-success">Paid</span>';
+                        
+                        const receiptCell = row.insertCell(5);
+                        receiptCell.innerHTML = `
+                            <button class="btn btn-sm btn-primary" onclick="viewReceipt('${paidPayment.id}')">
+                                <i class="fas fa-receipt"></i> View
+                            </button>
+                        `;
+                    } else {
+                        const today = new Date();
+                        const currentMonth = today.getMonth();
+                        const currentMonthName = monthOrder[currentMonth];
+                        
+                        row.insertCell(2).textContent = '1st';
+                        row.insertCell(3).textContent = '-';
+                        
+                        const statusCell = row.insertCell(4);
+                        if (month === currentMonthName) {
+                            statusCell.innerHTML = '<span class="badge bg-warning">Pending</span>';
+                        } else if (monthOrder.indexOf(month) < currentMonth) {
+                            statusCell.innerHTML = '<span class="badge bg-danger">Overdue</span>';
+                        } else {
+                            statusCell.innerHTML = '<span class="badge bg-secondary">Upcoming</span>';
+                        }
+                        
+                        row.insertCell(5).textContent = '-';
+                    }
+                }
+            });
+
+            // Fill payment details table
+            const detailsTable = document.getElementById('student-payments-details').getElementsByTagName('tbody')[0];
+            detailsTable.innerHTML = '';
+
+            filteredPayments.forEach(payment => {
+                const row = detailsTable.insertRow();
+                row.insertCell(0).textContent = payment.id;
+                row.insertCell(1).textContent = payment.month;
+                row.insertCell(2).textContent = '₹' + payment.amount;
+                row.insertCell(3).textContent = payment.paymentDate;
+                row.insertCell(4).textContent = payment.paymentMethod;
+                
+                const receiptCell = row.insertCell(5);
+                receiptCell.innerHTML = `
+                    <button class="btn btn-sm btn-primary" onclick="viewReceipt('${payment.id}')">
+                        <i class="fas fa-receipt"></i> View
+                    </button>
+                `;
+            });
+        }
+
+        function markAttendanceToday() {
+            if (!currentUser || currentUser.type !== 'student') return;
+
+            const today = new Date().toISOString().split('T')[0];
+            const studentId = currentUser.id;
+            const student = students.find(s => s.id === studentId);
+
+            // Check if attendance already marked for today
+            const existingAttendance = attendance.find(a => a.studentId === studentId && a.date === today);
+            if (existingAttendance) {
+                alert('Attendance already marked for today!');
+                return;
+            }
+
+            // Add new attendance record
+            attendance.push({
+                studentId: studentId,
+                date: today,
+                status: 'Present',
+                timeIn: student.timeIn,
+                timeOut: student.timeOut
+            });
+
+            // Save to localStorage
+            localStorage.setItem('attendance', JSON.stringify(attendance));
+
+            // Refresh dashboard
+            loadStudentDashboard();
+            if (document.getElementById('student-attendance-section').style.display !== 'none') {
+                loadStudentAttendance();
+            }
+
+            alert('Attendance marked successfully for today!');
+        }
+    </script>
+</body>
+</html>
